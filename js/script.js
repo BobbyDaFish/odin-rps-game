@@ -86,7 +86,7 @@ function getUserPlay(){ //Prompt user to chose which they want to play
     }
 }
 
-while (playing = true){
+while (playing === true){
     if(confirm("Let's play Rock Paper Scissors!") == true) {
         userPlay = getUserPlay();
         console.log("You chose " + userPlay);
@@ -96,7 +96,7 @@ while (playing = true){
         console.log("You " + result + "!");
     }
     else {
-console.log("OK, maybe next time!");
-
+    console.log("OK, maybe next time! Refresh the page to play again.");
+    playing = false;
     }
     }
