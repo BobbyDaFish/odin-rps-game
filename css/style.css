@@ -1,30 +1,39 @@
 body{
-    display: flex;
-    background-color: azure;
-    font-family: 'Courier New', Courier, monospace;
+    justify-content: center;
+    background-color: paleturquoise;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .play-btn{
+    display: flex;
     font-size: 36px;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
 .play-btn-cont{
-   flex: 1;
-   align-items: center;
-   justify-content: center; 
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center; 
+    min-height: 400px;
 }
 #title-text{
+    display: flex;
     font-size: 36px;
+    justify-content: center;
+    flex: 1;
 }
 #start-btn{
     font-size: 36px;
     align-items: center;
     justify-content: center;
     text-align: center;
+    
 }
 #start-btn-cont{
+    display: flex;
     flex: 1;
     align-items: center;
     justify-content: center; 
+    min-height: 400px;
 }
