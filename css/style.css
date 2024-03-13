@@ -1,0 +1,30 @@
+body{
+    display: flex;
+    background-color: azure;
+    font-family: 'Courier New', Courier, monospace;
+}
+.play-btn{
+    font-size: 36px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.play-btn-cont{
+   flex: 1;
+   align-items: center;
+   justify-content: center; 
+}
+#title-text{
+    font-size: 36px;
+}
+#start-btn{
+    font-size: 36px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#start-btn-cont{
+    flex: 1;
+    align-items: center;
+    justify-content: center; 
+}
