@@ -96,7 +96,7 @@ function playButton(){ // generate play button, display user's choice
             clickPlay();
             return;
         })
-        ;
+        
     }
     else{
         roundResultCont.textContent= `You chose ${userPlay}. Click Play to go!`;
