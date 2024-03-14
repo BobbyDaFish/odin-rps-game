@@ -3,8 +3,8 @@ let ready = true;
 let userPlay;
 let compPlay;
 let result;
-let userScore = parseInt(0);
-let compScore = parseInt(0);
+let userScore = 0;
+let compScore = 0;
 
 const mainCont = document.querySelector('#main-cont');
 const gameCont = document.querySelector('#game-cont');
@@ -47,8 +47,8 @@ rockBtn.textContent = "\u{1FAA8}";
 sciBtn.textContent = "\u{2702}";
 papBtn.textContent = "\u{1F4DC}";
 playBtn.textContent = `Play`;
-userScoreCont.textContent = `Your Score: ${userScore}`;
-compScoreCont.textContent = `Computer Score: ${compScore}`;
+userScoreCont.textContent = `Your Score: 0`;
+compScoreCont.textContent = `Computer Score: 0`;
 roundResultCont.textContent= "Let's play!";
 
 startBtn.addEventListener('click', startGame);
@@ -69,17 +69,17 @@ function startGame(){ //Replace start button with play buttons
         userPlay = rockBtn.id;
         playButton();
         //function to start round
-    });
+    }, true);
     document.getElementById('paper').addEventListener('click', function(){
         userPlay = papBtn.id;
         playButton();
         //function to start round
-    });
+    }, true);
     document.getElementById('scissors').addEventListener('click', function(){
         userPlay = sciBtn.id;
         playButton();
         //function to start round
-    });
+    }, true);
     
     scoreTracker();
 }
@@ -89,32 +89,20 @@ function playButton(){ // generate play button, display user's choice
         mainCont.insertBefore(playBtnCont, infoCont);
         playBtnCont.appendChild(playBtn);
         ready = false;
-
         roundResultCont.textContent = `You chose ${userPlay}. Click Play to go!`;
         
-        playBtn.addEventListener('click', function() {
+        document.getElementById('play').addEventListener('click', function() {
             this.parentNode.remove();
             ready = true;
             compPlay = createComputerChoice();
             result = getWinner(compPlay, userPlay);
-            if (result == "Draw"){
-                roundResultCont.textContent = `You chose ${userPlay}/nComputer chose ${compPlay}/nDraw!`;
-            }
-            else if (result == "Computer"){
-                roundResultCont.textContent = `You chose ${userPlay}/nComputer chose ${compPlay}/nComputer wins!`;
-                compScore++;
-                compScoreCont.textContent = `Computer Score: ${compScore}`;
-            }
-            else{
-                roundResultCont.textContent = `You chose ${userPlay}/nComputer chose ${compPlay}/nYou win!`;
-                userScore++;
-                userScoreCont.textContent = `Your Score: ${userScore}`;
-            }
-
-        })
+            roundResult();
+        }, true)
+        return;
     }
     else{
         roundResultCont.textContent= `You chose ${userPlay}. Click Play to go!`;
+        return;
     }
 }
 
@@ -131,6 +119,29 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
   }
   
+function roundResult(){
+    switch (result){
+        case "draw":
+            roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. Draw!`;
+            break;
+
+        case "Computer":
+            roundResultCont.textContent = `You chose ${userPlay}. The Computer chose ${compPlay}. Computer wins!`;
+            compScore++;
+            compScoreCont.textContent = `Computer Score: ${compScore}`;
+            break;
+
+        case "You":
+            roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. You win!`;
+            userScore++;
+            userScoreCont.textContent = `Your Score: ${userScore}`;
+            break;
+
+        default:
+            alert("Something broke!");
+
+    }
+}
 
 function createComputerChoice() { //Computer player random choice of rock, paper, or scissors
     let compChoice = getRandomIntInclusive(1,3);
@@ -191,36 +202,3 @@ function getWinner(compPlay, userPlay){ //Compare user input and random computer
     return outcome;
 }
 
-
-/* function getUserPlay(){ //Prompt user to chose which they want to play
-    let chosing = true;
-    while (chosing === true){
-
-    let userChoice = prompt("Rock, Paper, or Scissors?");
-    userChoice = userChoice.toLowerCase();
-
-    if (userChoice == "rock" || userChoice == "paper" || userChoice == "scissors"){
-        chosing = false;
-        return userChoice;
-    }
-    else{
-        console.log("Invalid entry, please try again");
-    }
-    }
-}
-
-while (playing === true){
-    if(confirm("Let's play Rock Paper Scissors!") == true) {
-        userPlay = getUserPlay();
-        console.log("You chose " + userPlay);
-        compPlay = createComputerChoice();
-        console.log("The computer chose " + compPlay);
-        result = getWinner(compPlay, userPlay);
-        console.log("You " + result + "!");
-    }
-    else {
-    console.log("OK, maybe next time! Refresh the page to play again.");
-    playing = false;
-    }
-    }
-*/
