@@ -27,7 +27,7 @@ const playBtn = document.createElement('button');
 rockBtnCont.setAttribute("class", "play-btn-cont");
 sciBtnCont.setAttribute("class", "play-btn-cont");
 papBtnCont.setAttribute("class", "play-btn-cont");
-playBtnConst.setAttribute("class", "play-btn-cont")
+playBtnCont.setAttribute("class", "start-btn-cont")
 infoCont.setAttribute('id', 'info-cont');
 userScoreCont.setAttribute("class", "score-cont");
 compScoreCont.setAttribute("class", "score-cont");
@@ -46,7 +46,7 @@ playBtn.setAttribute("id", "play");
 rockBtn.textContent = "\u{1FAA8}";
 sciBtn.textContent = "\u{2702}";
 papBtn.textContent = "\u{1F4DC}";
-playBtn.textContent = `Play ${userPlay}`;
+playBtn.textContent = `Play`;
 userScoreCont.textContent = `Your Score: ${userScore}`;
 compScoreCont.textContent = `Computer Score: ${compScore}`;
 roundResultCont.textContent= "Let's play!";
@@ -67,7 +67,7 @@ function startGame(){ //Replace start button with play buttons
 
     document.getElementById('rock').addEventListener('click', function(){
         userPlay = rockBtn.id;
-        
+        playButton();
         //function to start round
     });
     document.getElementById('paper').addEventListener('click', function(){
@@ -86,7 +86,7 @@ function startGame(){ //Replace start button with play buttons
 
 function playButton(){
     if (ready) {
-        mainCont.insertBefore(infoCont, playBtnCont);
+        mainCont.insertBefore(playBtnCont, infoCont);
         playBtnCont.appendChild(playBtn);
         ready = false;
 

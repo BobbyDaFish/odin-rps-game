@@ -15,6 +15,14 @@ body{
     justify-content: center; 
     min-height: 400px;
 }
+.start-btn-cont{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center; 
+    margin-bottom: 100px;
+    margin-top: -100px;
+}
 .score-cont{
     flex: 1;
     justify-content: center;
