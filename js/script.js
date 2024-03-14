@@ -72,28 +72,49 @@ function startGame(){ //Replace start button with play buttons
     });
     document.getElementById('paper').addEventListener('click', function(){
         userPlay = papBtn.id;
-        
+        playButton();
         //function to start round
     });
     document.getElementById('scissors').addEventListener('click', function(){
         userPlay = sciBtn.id;
-       
+        playButton();
         //function to start round
     });
     
     scoreTracker();
 }
 
-function playButton(){
+function playButton(){ // generate play button, display user's choice
     if (ready) {
         mainCont.insertBefore(playBtnCont, infoCont);
         playBtnCont.appendChild(playBtn);
         ready = false;
 
-        roundResultCont.textContent= `You chose ${userPlay}. Click Play to go!`;
+        roundResultCont.textContent = `You chose ${userPlay}. Click Play to go!`;
+        
+        playBtn.addEventListener('click', function() {
+            this.parentNode.remove();
+            ready = true;
+            compPlay = createComputerChoice();
+            result = getWinner(compPlay, userPlay);
+            if (result == "Draw"){
+                roundResultCont.textContent = `You chose ${userPlay}/nComputer chose ${compPlay}/nDraw!`;
+            }
+            else if (result == "Computer"){
+                roundResultCont.textContent = `You chose ${userPlay}/nComputer chose ${compPlay}/nComputer wins!`;
+                compScore++;
+                compScoreCont.textContent = `Computer Score: ${compScore}`;
+            }
+            else{
+                roundResultCont.textContent = `You chose ${userPlay}/nComputer chose ${compPlay}/nYou win!`;
+                userScore++;
+                userScoreCont.textContent = `Your Score: ${userScore}`;
+            }
+
+        })
     }
     else{
-        
+        roundResultCont.textContent= `You chose ${userPlay}. Click Play to go!`;
     }
 }
 
@@ -140,28 +161,28 @@ function getWinner(compPlay, userPlay){ //Compare user input and random computer
         switch (userPlay){
             case "rock":
                 if(compPlay === "paper"){
-                    outcome = "lose";
+                    outcome = "Computer";
                 }
                 else{
-                    outcome = "win";
+                    outcome = "You";
                 }
                     break;
     
             case "paper":
                 if(compPlay === "scissors"){
-                    outcome = "lose";
+                    outcome = "Computer";
                 }
                 else{
-                    outcome = "win";
+                    outcome = "You";
                 }
                 
                 break;
             case "scissors":
             if(compPlay === "rock"){
-                outcome = "lose";
+                outcome = "Computer";
             }
             else{
-                outcome = "win";
+                outcome = "You";
             }
                 break;
     }
