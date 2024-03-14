@@ -96,8 +96,30 @@ function playButton(){ // generate play button, display user's choice
             ready = true;
             compPlay = createComputerChoice();
             result = getWinner(compPlay, userPlay);
-            roundResult();
-        }, true)
+            
+            switch (result){
+                case "draw":
+                    roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. Draw!`;
+                    break;
+        
+                case "Computer":
+                    roundResultCont.textContent = `You chose ${userPlay}. The Computer chose ${compPlay}. Computer wins!`;
+                    compScore++;
+                    compScoreCont.textContent = `Computer Score: ${compScore}`;
+                    break;
+        
+                case "You":
+                    roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. You win!`;
+                    userScore++;
+                    userScoreCont.textContent = `Your Score: ${userScore}`;
+                    break;
+        
+                default:
+                    alert("Something broke!");
+        
+            }
+
+        }, false)
         return;
     }
     else{
@@ -120,27 +142,7 @@ function getRandomIntInclusive(min, max) {
   }
   
 function roundResult(){
-    switch (result){
-        case "draw":
-            roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. Draw!`;
-            break;
-
-        case "Computer":
-            roundResultCont.textContent = `You chose ${userPlay}. The Computer chose ${compPlay}. Computer wins!`;
-            compScore++;
-            compScoreCont.textContent = `Computer Score: ${compScore}`;
-            break;
-
-        case "You":
-            roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. You win!`;
-            userScore++;
-            userScoreCont.textContent = `Your Score: ${userScore}`;
-            break;
-
-        default:
-            alert("Something broke!");
-
-    }
+    
 }
 
 function createComputerChoice() { //Computer player random choice of rock, paper, or scissors
