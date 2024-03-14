@@ -91,40 +91,46 @@ function playButton(){ // generate play button, display user's choice
         ready = false;
         roundResultCont.textContent = `You chose ${userPlay}. Click Play to go!`;
         
-        document.getElementById('play').addEventListener('click', function() {
-            this.parentNode.remove();
-            ready = true;
-            compPlay = createComputerChoice();
-            result = getWinner(compPlay, userPlay);
-            
-            switch (result){
-                case "draw":
-                    roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. Draw!`;
-                    break;
-        
-                case "Computer":
-                    roundResultCont.textContent = `You chose ${userPlay}. The Computer chose ${compPlay}. Computer wins!`;
-                    compScore++;
-                    compScoreCont.textContent = `Computer Score: ${compScore}`;
-                    break;
-        
-                case "You":
-                    roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. You win!`;
-                    userScore++;
-                    userScoreCont.textContent = `Your Score: ${userScore}`;
-                    break;
-        
-                default:
-                    alert("Something broke!");
-        
-            }
-
-        }, false)
-        return;
+        playBtnCont.querySelector('#play').addEventListener('click', function(e) {
+            e.stopImmediatePropagation();
+            clickPlay();
+            return;
+        })
+        ;
     }
     else{
         roundResultCont.textContent= `You chose ${userPlay}. Click Play to go!`;
         return;
+    }
+}
+
+function clickPlay(){
+    playBtn.parentNode.remove();
+    ready = true;
+    compPlay = createComputerChoice();
+    result = getWinner(compPlay, userPlay);
+    
+    switch (result){
+        case "draw":
+            roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. Draw!`;
+            
+            break;
+
+        case "Computer":
+            roundResultCont.textContent = `You chose ${userPlay}. The Computer chose ${compPlay}. Computer wins!`;
+            compScore++;
+            compScoreCont.textContent = `Computer Score: ${compScore}`;
+            break;
+
+        case "You":
+            roundResultCont.textContent = `You chose ${userPlay}. Computer chose ${compPlay}. You win!`;
+            userScore++;
+            userScoreCont.textContent = `Your Score: ${userScore}`;
+            break;
+
+        default:
+            alert("Something broke!");
+            break;
     }
 }
 
@@ -141,9 +147,6 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
   }
   
-function roundResult(){
-    
-}
 
 function createComputerChoice() { //Computer player random choice of rock, paper, or scissors
     let compChoice = getRandomIntInclusive(1,3);
