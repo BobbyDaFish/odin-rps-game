@@ -18,11 +18,13 @@ const infoCont = document.createElement('div');
 const userScoreCont = document.createElement('div');
 const compScoreCont = document.createElement('div');
 const roundResultCont = document.createElement('div');
+const restartBtnCont = document.createElement('div');
 
 const rockBtn = document.createElement('button');
 const sciBtn = document.createElement('button');
 const papBtn = document.createElement('button');
 const playBtn = document.createElement('button');
+const restartBtn = document.createElement('button');
 
 rockBtnCont.setAttribute("class", "play-btn-cont");
 sciBtnCont.setAttribute("class", "play-btn-cont");
@@ -32,16 +34,19 @@ infoCont.setAttribute('id', 'info-cont');
 userScoreCont.setAttribute("class", "score-cont");
 compScoreCont.setAttribute("class", "score-cont");
 roundResultCont.setAttribute('class', "result-cont");
+restartBtnCont.setAttribute("class", "play-btn-cont");
 
 rockBtn.setAttribute("class", "play-btn");
 sciBtn.setAttribute("class", "play-btn");
 papBtn.setAttribute("class", "play-btn");
 playBtn.setAttribute("class", "play-btn");
+restartBtn.setAttribute("class", "play-btn");
 
 rockBtn.setAttribute("id", "rock");
 sciBtn.setAttribute("id", "scissors");
 papBtn.setAttribute("id", "paper");
 playBtn.setAttribute("id", "play");
+restartBtn.setAttribute("id", "restart");
 
 rockBtn.textContent = "\u{1FAA8}";
 sciBtn.textContent = "\u{2702}";
@@ -50,8 +55,7 @@ playBtn.textContent = `Play`;
 userScoreCont.textContent = `Your Score: 0`;
 compScoreCont.textContent = `Computer Score: 0`;
 roundResultCont.textContent= "Let's play!";
-
-startBtn.addEventListener('click', startGame);
+restartBtn.textContent = "Restart!";
 
 function startGame(){ //Replace start button with play buttons
 
@@ -132,6 +136,45 @@ function clickPlay(){
             alert("Something broke!");
             break;
     }
+
+    if (compScore == 5){ //end game and restart button
+
+        gameCont.remove();
+        roundResultCont.textContent = `Game Over! Computer wins!`;
+       
+        mainCont.insertBefore(restartBtnCont, infoCont);
+        restartBtnCont.appendChild(restartBtn);
+
+        document.querySelector('#restart').addEventListener('click', () => {
+            userScore = 0;
+            compScore = 0;
+            compScoreCont.textContent = `Computer Score: ${compScore}`;
+            userScoreCont.textContent = `Your Score: ${userScore}`;
+            roundResultCont.textContent = `Let's Play!`;
+            restartBtnCont.remove();
+            mainCont.insertBefore(gameCont, infoCont);
+        })
+    }
+    else if (userScore == 5){
+        gameCont.remove();
+        roundResultCont.textContent = `Game Over! You win!`;
+        
+        mainCont.insertBefore(restartBtnCont, infoCont);
+        restartBtnCont.appendChild(restartBtn);
+
+        document.querySelector('#restart').addEventListener('click', () => {
+            userScore = 0;
+            compScore = 0;
+            compScoreCont.textContent = `Computer Score: ${compScore}`;
+            userScoreCont.textContent = `Your Score: ${userScore}`;
+            roundResultCont.textContent = `Let's Play!`;
+            restartBtnCont.remove();
+            mainCont.insertBefore(gameCont, infoCont);
+        })
+    }
+    else {
+        return;
+    }
 }
 
 function scoreTracker(){ // Create score tracker containers
@@ -206,4 +249,6 @@ function getWinner(compPlay, userPlay){ //Compare user input and random computer
     }
     return outcome;
 }
+
+startBtn.addEventListener('click', startGame);
 

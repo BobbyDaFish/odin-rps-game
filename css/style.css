@@ -36,11 +36,13 @@ body{
     align-items: center;
     text-align: center;
 }
+
 #main-cont{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 400px;
 }
 #info-cont{
     display:flex;
